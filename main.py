@@ -3,14 +3,15 @@ Napisz program, który oblicza pole i obwód koła o promieniu podanym przez uż
 π weź z biblioteki math. Promień nie może być ujemny. W przypadku podania liczby ujemnej, program
 powinien wypisywać komunikat informujący o błędnej wartości i nic nie liczyć.
 '''
+import math
+while True:
+    r = float(input("Podaj promień koła: "))
+    if r > 0:
+        pole, obwod = math.pi*r**2, 2*math.pi*r
+
+        print(f"Pole koła wynosi: {pole:.2f}, natomiast obwód wynosi {obwod:.2f}")
+        break
+    else:
+        print("Promień nie może być ujemny!")
 
 
-
-nums = input("Podaj a oraz b rozdzielone spacją: ")
-a, b = map(int, nums.split())  
-
-print(f"suma {a} i {b}=", a + b)
-print(f"iloczyn {a} i {b} =", a * b)
-print(f"iloraz {a} i {b} =", a / b)
-print(f"pierwiastek {a}+{b} =", math.sqrt(a + b))
-print(f"{a} do potegi {b} =", a ** b)
