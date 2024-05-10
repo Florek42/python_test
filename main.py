@@ -1,36 +1,35 @@
-import math
+import quadratic_functions
+import calculations
 
-nums = input("Podaj a, b oraz c rozdzielone spacją: ")
-a, b, c = map(int, nums.split())
-delta = b ** 2 - 4 * a * c
-print(f"Wzór funkcji kwadratowej to: {a}x² + {b}x + {c}\n")
-P = (-b) / (2 * a)
-Q = (-delta) / (4 * a)
+def main():
+    nums = input("Podaj a, b oraz c rozdzielone spacją: ")
+    a, b, c = map(int, nums.split())
 
-if a>0:
-    print("Funkcja jest rosnąca!\n")
-if a<0:
-    print("Funkcja jest malejąca!\n")
+    choice = input("Co chcesz obliczyć? (1 - Wierzchołki paraboli, 2 - Delta, 3 - Miejsca zerowe, 4 - Kierunek funkcji): ")
 
+    if choice == "1":
+        P, Q = quadratic_functions.calculate_vertex(a, b, c)
+        print(f"Wierzchołki paraboli (P,Q) to: ({round(P)},{round(Q)})")
+    elif choice == "2":
+        delta = quadratic_functions.calculate_delta(a, b, c)
+        print(f"Delta tej funkcji i jej pierwiastek wynoszą: √{delta} = {math.sqrt(delta)}")
+    elif choice == "3":
+        delta = quadratic_functions.calculate_delta(a, b, c)
+        zeros = quadratic_functions.calculate_zero_places(a, b, c, delta)
+        if zeros:
+            if isinstance(zeros, int):
+                print(f"Miejsce zerowe wynosi: {zeros}")
+            else:
+                print(f"Miejsca zerowe to: x1 = {zeros[0]}, x2 = {zeros[1]}")
+        else:
+            print("Brak miejsc zerowych dla tej funkcji.")
+    elif choice == "4":
+        if calculations.is_increasing(a):
+            print("Funkcja jest rosnąca!")
+        elif calculations.is_decreasing(a):
+            print("Funkcja jest malejąca!")
+    else:
+        print("Nieprawidłowy wybór.")
 
-print(f"Wierzchołki paraboli (P,Q) to: ({round(P)},{round(Q)})\n")
-
-if delta >= 0:
-    p_delta = math.sqrt(delta)
-    print(f"Delta tej funkcji i jej pierwiastek wynoszą: √{delta} = {p_delta}\n")
-else:
-    print("Delta jest ujemna, brak rozwiązań!")
-
-# miejsca zerowe jesli są
-if delta == 0:
-    x_zero = (-b) / (2 * a)
-    print(f"Miejsce zerowe wynosi: {x_zero}")
-elif delta > 0:
-    x_pierwszy = ((-b) - p_delta) / (2 * a)
-    x_drugi = ((-b) + p_delta) / (2 * a)
-    print(f"Miejsca zerowe to: x1 = {round(x_pierwszy)}, x2 = {round(x_drugi)}")
-
-kanoniczna = a+"'('x - "+P+"')'² + "+Q
-print(f"Postać kanoniczna funkcji to: {kanoniczna}")
-iloczynowa = a+"(x - "+x_pierwszy+")"+"(x - "+x_drugi+")"
-print(f"Postać iloczynowa funkcji to: {iloczynowa}")
+if __name__ == "__main__":
+    main()
